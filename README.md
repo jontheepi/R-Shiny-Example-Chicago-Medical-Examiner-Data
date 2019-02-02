@@ -1,2 +1,3 @@
-# R-Shiny-Examples
-Examples of quick R Shiny Apps that I've created.
+# Quick R Shiny App that visualizes open data from the Chicago Medical Examiner Data
+# Spreadsheet *.csv data is also included.
+
