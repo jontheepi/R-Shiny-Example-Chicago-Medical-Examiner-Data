@@ -31,9 +31,10 @@ ui <- fluidPage(
                                     "HYPERTENSIVE CARDIOVASCULAR DISEASE"="HYPERTENSIVE CARDIOVASCULAR DISEASE","DIABETIC KETOACIDOSIS"="DIABETIC KETOACIDOSIS",
                                     "COMPLICATIONS OF FALL"="COMPLICATIONS OF FALL"), selected = "MULTIPLE GUNSHOT WOUNDS"),
           h4("Welcome to an app that helps you examine open data from the Chicago/Cook County Medical Examiner. To use this app, select a cause of death from the drop-down menu. The map and table will update the results based on what you selected. Also, click on map markers to bring up a pop-up with information."),
-          h5("Created by Jonathan Gross on February 2, 2019 for Data Driven Products - Week #4")
+          h5("Created by Jonathan Gross on February 2, 2019 for Data Driven Products - Week #4"),
+          h5(a("Code on GitHub website",href="      https://github.com/jontheepi/R-Shiny-Example-Chicago-Medical-Examiner-Data"))
            ),
-      
+
       # Show map
       mainPanel(
         leafletOutput("map",height="400"),
@@ -46,7 +47,7 @@ ui <- fluidPage(
 # Server
 server <- function(input, output) {
    output$map <- renderLeaflet({
-     mapdata<-read.csv("C:/Users/Jon/Desktop/MyApp/Medical_Examiner_Case_Archive_2018_Half.csv",header=TRUE,sep=",")
+     mapdata<-read.csv("Medical_Examiner_Case_Archive_2018_Half.csv",header=TRUE,sep=",")
      mapdata<-mapdata[!is.na(mapdata$latitude) | !is.na(mapdata$longitude),]
      mapdata<-mapdata[mapdata$Primary.Cause==input$select,]
      #mapreact<-reactive({mapdata})
@@ -59,7 +60,7 @@ server <- function(input, output) {
    })
    
    output$table<-renderDataTable({
-     mapdata<-read.csv("C:/Users/Jon/Desktop/MyApp/Medical_Examiner_Case_Archive_2018_Half.csv",header=TRUE,sep=",")
+     mapdata<-read.csv("Medical_Examiner_Case_Archive_2018_Half.csv",header=TRUE,sep=",")
      keep_vars<-c("Case.Number","Date.of.Death","Primary.Cause","Manner.of.Death","Age","Gender","Race","Latino","latitude","longitude")
      mapdata<-mapdata[keep_vars]
      mapdata<-mapdata[!is.na(mapdata$latitude) | !is.na(mapdata$longitude),]
